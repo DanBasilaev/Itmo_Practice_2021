@@ -29,11 +29,12 @@ if (isset($_POST['password'])){
 if (isset($_POST['login'])){
 $query_login_check_reg =  $mysqli->query("SELECT login FROM USERS WHERE login LIKE '$login'");
 $row_reg = mysqli_fetch_assoc($query_login_check_reg);
+//print_r($row_reg);
 
 
 }
 if (isset($_POST['name']) AND isset($_POST['lastname']) AND isset($_POST['login']) AND isset($_POST['password'])) {
-    $query_reg = "INSERT INTO users VALUES ('$name' , '$lastname', '$login', '$password')";
+    $query_reg = "INSERT INTO users VALUES ('' , '$name' , '$lastname', '$login', '$password')";
     $mysqli->query($query_reg);
 }
 
@@ -59,14 +60,18 @@ if (isset($_GET['login_log'])){
 if (isset($_GET['password_log'])){
     $password_log = $_GET['password_log'];
 }
-if (isset($_GET['login_log']) and isset($_GET['password_log'])){
-    $query_login_check_log = $mysqli->query("SELECT * FROM USERS WHERE login LIKE'$login_log' AND password LIKE '$password_log'");
+
+if (isset($_GET['login_log']) and isset($_GET['password_log'])) {
+
+    $query_login_check_log = $mysqli->query("SELECT * FROM USERS WHERE login LIKE '$login_log' AND password LIKE '$password_log'");
     $row_log = mysqli_fetch_assoc($query_login_check_log);
-    print_r($row_log);
+
 }
 
 
-//echo $login_log, $password_log;
+$mysqli->close();
+
+
 
 
 //------------------ Конец Входа --------------------
@@ -92,6 +97,7 @@ if (isset($_GET['login_log']) and isset($_GET['password_log'])){
 
     <header  id="head">
         <h1>{{header}}</h1>
+
         <div id="sign-log">
             <button v-on:click="logBtn">{{log_in}}</button>
             <button v-on:click="regBtn">{{sign_up}}</button>
@@ -121,7 +127,7 @@ if (isset($_GET['login_log']) and isset($_GET['password_log'])){
                 <input v-model="lastname" type="text" name="lastname" required placeholder="Введите Фамилию">
                 <input v-model="login" type="text" name="login" required placeholder="Введите логин">
                 <input v-model="password" type="password" name="password" required placeholder="Введите пароль">
-                <button  v-on:click="regBtn_menu">{{registration}}</button>
+                <button onclick="location.href = '/user.php/'"  v-on:click="regBtn_menu">{{registration}}</button>
                 <?php
                 if (isset($row_reg)){
                     if ($row_reg != null){ ?>
@@ -132,10 +138,13 @@ if (isset($_GET['login_log']) and isset($_GET['password_log'])){
 
             </form>
 
-            <form method="get" hidden action="users/user.php" class="menu" id="log">
+            <form method="get" hidden class="menu" id="log" action="user.php" >
                 <input v-model="login" type="text" name="login_log" required placeholder="Введите логин">
                 <input v-model="password" type="password" name="password_log" required placeholder="Введите пароль">
-                <button  v-on:click="logBtn_menu">{{log}}</button>
+                <button  v-on:click="">{{log}}</button>
+
+
+
             </form>
 
         </div>

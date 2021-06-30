@@ -25,12 +25,14 @@ var app = new Vue({
             var logbtn = document.getElementById('log').hidden = true
 
         },
+
         logBtn: function () {
             var user= document.getElementById('user').hidden = true
             var logbtn = document.getElementById('log').hidden = false
             var regbtn = document.getElementById('reg').hidden = true
 
         },
+
         //алгоритм кодирования текста в картику
         draw: function (){
             var canvas = document.getElementById('textCanvas'),
@@ -94,24 +96,21 @@ var app = new Vue({
 
 
         },
-        regBtn_menu: function () {
+
+   /*     regBtn_menu: function () {
 
             if (this.name != '' && this.lastname != '' && this.login != '' && this.password != ''){
                console.log(this.name)
             }
 
-        },
-        logBtn_menu: function () {
+        },*/
+
+       /* logBtn_menu: function () {
             if (this.login != '' && this.password != ''){
-                var logbtn = document.getElementById('log').hidden = true
-                var user= document.getElementById('user').hidden = false
-                var sign = document.getElementById("sign-log").hidden = true
-                var user_name = document.getElementById('name').hidden = false
-                console.log(this.name)
+                document.location.href = "../user.php/"
             }
 
-        },
+        },*/
     }
 })
-
 
