@@ -93,27 +93,11 @@ var app = new Vue({
 
 
 
-            /*let tCtx = document.getElementById('textCanvas').getContext('2d');
-            let img;
-
-
-            tCtx.font = "48px serif";
-            tCtx.fillText(this.valueOf().form, 10, 50);
-            img = tCtx.canvas.toDataURL();
-            console.log(tCtx)
-            this.URL = img;
-            console.log(this.URL)*/
-
-
         },
         regBtn_menu: function () {
 
             if (this.name != '' && this.lastname != '' && this.login != '' && this.password != ''){
-                var logbtn = document.getElementById('reg').hidden = true
-                var sign = document.getElementById("sign-log").hidden = true
-                var user= document.getElementById('user').hidden = false
-                var user_name = document.getElementById('name').hidden = false
-
+               console.log(this.name)
             }
 
         },
@@ -123,19 +107,10 @@ var app = new Vue({
                 var user= document.getElementById('user').hidden = false
                 var sign = document.getElementById("sign-log").hidden = true
                 var user_name = document.getElementById('name').hidden = false
+                console.log(this.name)
             }
 
         },
-
-        exitBtn: function (){
-            var user= document.getElementById('user').hidden = true
-            var sign = document.getElementById("sign-log").hidden = false
-            var user_name = document.getElementById('name').hidden = true
-
-        }
-
-
-
     }
 })
 

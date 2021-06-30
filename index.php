@@ -25,18 +25,21 @@ if (isset($_POST['password'])){
 }
 
 //echo $name, $lastname, $login, $password;
+
 if (isset($_POST['login'])){
 $query_login_check_reg =  $mysqli->query("SELECT login FROM USERS WHERE login LIKE '$login'");
-$count_reg = mysqli_fetch_array($query_login_check_reg);
-}
+$row_reg = mysqli_fetch_assoc($query_login_check_reg);
 
-if ( $count_reg == 0) {
-    $query_reg = "INSERT INTO users VALUES ('$name' , '$lastname', '$login', '$password', '')";
+
+}
+if (isset($_POST['name']) AND isset($_POST['lastname']) AND isset($_POST['login']) AND isset($_POST['password'])) {
+    $query_reg = "INSERT INTO users VALUES ('$name' , '$lastname', '$login', '$password')";
     $mysqli->query($query_reg);
 }
+
+
 $mysqli->close();
 
-//------------------ Конец Регистрации --------------------
 
 
 
@@ -50,20 +53,22 @@ if(mysqli_connect_errno()){
 
 $mysqli->set_charset('utf8');
 
-if (isset($_GET['login'])){
-    $login_log = $_GET['login'];
+if (isset($_GET['login_log'])){
+    $login_log = $_GET['login_log'];
 }
-if (isset($_GET['password'])){
-    $password_log = $_GET['password'];
+if (isset($_GET['password_log'])){
+    $password_log = $_GET['password_log'];
 }
+if (isset($_GET['login_log']) and isset($_GET['password_log'])){
+    $query_login_check_log = $mysqli->query("SELECT * FROM USERS WHERE login LIKE'$login_log' AND password LIKE '$password_log'");
+    $row_log = mysqli_fetch_assoc($query_login_check_log);
+    print_r($row_log);
+}
+
+
 //echo $login_log, $password_log;
 
-if (isset($_GET['login']) and isset($_GET['password'])){
-    $query_login_check_log =  $mysqli->query("SELECT login FROM USERS WHERE login LIKE '$login_log' and password LIKE '$password_log'");
-    $count_log = mysqli_fetch_array($query_login_check_log);
-}
 
-$mysqli->close();
 //------------------ Конец Входа --------------------
 
 ?>
@@ -92,21 +97,6 @@ $mysqli->close();
             <button v-on:click="regBtn">{{sign_up}}</button>
         </div>
 
-
-
-        <div hidden id="name">
-         <?php
-         if ($count_log != 0){
-         ?>
-            <h2>{{name}} {{lastname}}</h2> <?php
-         }
-
-         else{
-            ?>
-            <script>alert("Логин или пароль введены неверно")</script><?php
-         }?>
-
-        </div>
     </header>
 
 
@@ -115,38 +105,36 @@ $mysqli->close();
         <img v-bind:src="URL" alt="">
         <form method="post" action="" id='forma'>
             <textarea v-model="form" wrap="hard" id = "text" required></textarea>
-            <button id="cod" v-on:click="draw">{{encoding}}</button>
+            <button id="cod" v-on:click="">{{encoding}}</button>
         </form>
 
 
 
         <div id="mod_menu">
             <div hidden id="user">
-                <button v-on:click="exitBtn">{{exit}}</button>
+                <button v-on:click="">{{exit}}</button>
             </div>
 
 
-
-            <form method="post" hidden action="/" class="menu"  id="reg">
+            <form method="post" hidden class="menu" id="reg" action="">
                 <input v-model="name" type="text" name="name" required placeholder="Введите Имя">
                 <input v-model="lastname" type="text" name="lastname" required placeholder="Введите Фамилию">
                 <input v-model="login" type="text" name="login" required placeholder="Введите логин">
                 <input v-model="password" type="password" name="password" required placeholder="Введите пароль">
-                <button v-on:click="regBtn_menu">{{registration}}</button>
-                <?php if ($count_reg != 0){
-                    ?>
-                    <script>alert("такой логин уже занят")</script>
-                    <?php
-                } ?>
+                <button  v-on:click="regBtn_menu">{{registration}}</button>
+                <?php
+                if (isset($row_reg)){
+                    if ($row_reg != null){ ?>
+                    <script>alert('Такой пользователь уже есть в системе')</script><?php
+                    }
+                }
+                ?>
+
             </form>
 
-
-
-
-
-            <form method="get" hidden action="/" class="menu" id="log">
-                <input v-model="login" type="text" name="login" required placeholder="Введите логин">
-                <input v-model="password" type="password" name="password" required placeholder="Введите пароль">
+            <form method="get" hidden action="users/user.php" class="menu" id="log">
+                <input v-model="login" type="text" name="login_log" required placeholder="Введите логин">
+                <input v-model="password" type="password" name="password_log" required placeholder="Введите пароль">
                 <button  v-on:click="logBtn_menu">{{log}}</button>
             </form>
 
