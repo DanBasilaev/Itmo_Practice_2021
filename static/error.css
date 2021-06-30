@@ -1,0 +1,33 @@
+body{
+    min-width: 900px;
+    color: #000;
+    background-image:url("error.jpg");
+    margin-top: 0;
+}
+
+h1{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+
+    font: bolder 550% 'century gothic', "Times New Roman", sans-serif;
+    color: white;
+}
+h3{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    font: bold 300% 'century gothic', "Times New Roman", sans-serif;
+    color: white;
+}
+button{
+    padding: 10px;
+
+    text-align: center;
+    text-decoration: underline;
+    margin-left: 36%;
+
+    font: bold 300% 'century gothic', "Times New Roman", sans-serif;
+
+
+}
