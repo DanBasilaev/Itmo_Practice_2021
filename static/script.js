@@ -111,13 +111,8 @@ var app = new Vue({
                 var user_name = document.getElementById('name').hidden = false
                 console.log(this.name)
             }
-
         },
-        show: function () {
-            document.getElementById('text').hidden = true;
 
-
-        }
     }
 })
 

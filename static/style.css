@@ -256,16 +256,31 @@ canvas{
     color: red;
 }
 
-
 .history{
-    font-size: 20em;
-    height: 30px;
+    padding: 1%;
+    margin: 0 20% 5% 20%;
     width: 60%;
-    text-align: left;
-    border-radius: 20px;
-    margin: 10% 20% 10% 20%;
+    height: 7%;
+
+    text-align: center;
+    font: normal 200% 'century gothic', "Fira Code", sans-serif;
+
+    border-radius: 5px;
+    color: cyan;
 }
 
+#img_show{
+    width: 95%;
+    height: 570px;
+    max-width: 1400px;
+    resize: none;
+    box-sizing: border-box;
+    color: #e4e4e4;
+    font: normal 250% 'century gothic', "Times New Roman", sans-serif;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1%;
+}
 
 /*---------End Users*/
 

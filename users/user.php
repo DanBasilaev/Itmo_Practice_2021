@@ -98,14 +98,14 @@ $query_history = $mysqli->query("SELECT * FROM images WHERE login LIKE'$login_lo
 
 
     <main>
-        <canvas hidden id='textCanvas' v-model="URL" ></canvas>
+        <canvas hidden id='textCanvas'></canvas>
         <form method="post" id='forma'>
             <input type="hidden" name="URL" value="" id="img_url">
             <textarea v-model="form" name="form" id = "text" required></textarea>
             <button id="cod" v-on:click="draw">{{encoding}}</button>
         </form>
 
-        <img id="img_show" src="" alt="">
+        <img hidden id="img_show" src="">
 
 
 
@@ -114,16 +114,16 @@ $query_history = $mysqli->query("SELECT * FROM images WHERE login LIKE'$login_lo
 
             $count = 0;
             while (($row = mysqli_fetch_assoc($query_history)) && $count < 5){
-
                 $count += 1;
                 //print_r($row['uri']);
-                
+                ?>
+                <button class="history" onclick="show('<?php echo $row['uri'];?>')">Cсылка № <?php echo $count;?></button>
+
+                <?php
             }
-
-
             $mysqli->close();
-
             ?>
+            <button class="history" style="color: red;" onclick="back()">Назад к кодированию</button>
             <form action="../index.php" id="user">
                 <button>{{exit}}</button>
             </form>
@@ -156,6 +156,23 @@ $query_history = $mysqli->query("SELECT * FROM images WHERE login LIKE'$login_lo
         return data;
     }
     getURLVarArr()
+
+    function show(uri) {
+        document.getElementById('text').hidden = true;
+        document.getElementById('cod').hidden = true;
+        let img = document.getElementById('img_show');
+        img.hidden = false;
+        img.setAttribute('src', uri)
+
+    }
+    function back() {
+        document.getElementById('text').hidden = false;
+        document.getElementById('cod').hidden = false;
+        let img = document.getElementById('img_show');
+        img.hidden = true;
+        img.setAttribute('src', '')
+    }
+
 
 
 
