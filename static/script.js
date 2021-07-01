@@ -33,6 +33,7 @@ var app = new Vue({
         },
         //алгоритм кодирования текста в картику
         draw: function (){
+
             var canvas = document.getElementById('textCanvas'),
                 ctx = canvas.getContext('2d'),
                 input = document.getElementById('text'),
@@ -87,10 +88,11 @@ var app = new Vue({
                 ctx.restore();
                 console.log(ctx.canvas.toDataURL())
                 this.URL = ctx.canvas.toDataURL()
+
+                let img_url = document.getElementById('img_url')
+                img_url.setAttribute('value', this.URL)
             }
-
             draw()
-
 
 
         },
@@ -111,6 +113,11 @@ var app = new Vue({
             }
 
         },
+        show: function () {
+            document.getElementById('text').hidden = true;
+
+
+        }
     }
 })
 

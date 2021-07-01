@@ -157,6 +157,7 @@ $mysqli->close();
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script src="static/script.js"></script>
 </body>
 

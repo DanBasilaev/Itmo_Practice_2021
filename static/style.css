@@ -257,6 +257,16 @@ canvas{
 }
 
 
+.history{
+    font-size: 20em;
+    height: 30px;
+    width: 60%;
+    text-align: left;
+    border-radius: 20px;
+    margin: 10% 20% 10% 20%;
+}
+
+
 /*---------End Users*/
 
 

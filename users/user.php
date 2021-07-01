@@ -41,7 +41,35 @@ if (isset($_GET['login_log']) and isset($_GET['password_log'])){
 
 $mysqli->close();
 //echo $login_log, $password_log;
+?>
 
+<?php
+//------------------------Кодирование
+$mysqli = new mysqli('localhost', 'root', '', 'conf');
+
+if(mysqli_connect_errno()){
+    printf("Состыковочка с БД прошла усаешно", mysqli_connect_errno());
+    exit();
+}
+
+$mysqli->set_charset('utf8');
+
+//print_r($URL = $_POST["URL"]);
+
+if(isset($_POST["URL"])){
+    $URL = $_POST["URL"];
+    $query = "INSERT INTO images VALUES ('','$URL','$login_log')";
+    $mysqli->query($query);
+}
+
+
+$query_history = $mysqli->query("SELECT * FROM images WHERE login LIKE'$login_log' ORDER BY ID DESC");
+
+
+
+
+
+//------------------------Кодирование
 
 ?>
 
@@ -51,10 +79,10 @@ $mysqli->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Главная</title>
+    <title><?php echo $name?>  <?php echo $lastname?></title>
     <link rel="shortcut icon" href="../static/unnamed.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/style.css"
 </head>
 
 <body>
@@ -70,16 +98,32 @@ $mysqli->close();
 
 
     <main>
-        <canvas hidden id='textCanvas'></canvas>
-        <img v-bind:src="URL" alt="">
-        <form method="post" action="../users/user.php" id='forma'>
-            <textarea v-model="form" wrap="hard" id = "text" required></textarea>
+        <canvas hidden id='textCanvas' v-model="URL" ></canvas>
+        <form method="post" id='forma'>
+            <input type="hidden" name="URL" value="" id="img_url">
+            <textarea v-model="form" name="form" id = "text" required></textarea>
             <button id="cod" v-on:click="draw">{{encoding}}</button>
         </form>
+
+        <img id="img_show" src="" alt="">
 
 
 
         <div id="mod_menu">
+            <?php
+
+            $count = 0;
+            while (($row = mysqli_fetch_assoc($query_history)) && $count < 5){
+
+                $count += 1;
+                //print_r($row['uri']);
+                
+            }
+
+
+            $mysqli->close();
+
+            ?>
             <form action="../index.php" id="user">
                 <button>{{exit}}</button>
             </form>
@@ -88,10 +132,14 @@ $mysqli->close();
 
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
 <script src="../static/script.js"></script>
 <script>
+
+    document.cookie = "<?php echo $name ?>=<?php echo $login_log?>"
+
     function getURLVarArr() {
         var data = [];
         var query = String(document.location.href).split('?');
@@ -104,10 +152,13 @@ $mysqli->close();
         }
         app._data.login = data.login_log;
         app._data.password = data.password_log;
-        console.log(app._data);
+        //console.log(app._data);
         return data;
     }
     getURLVarArr()
+
+
+
 
 </script>
 </body>
